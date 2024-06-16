@@ -1,7 +1,7 @@
 {
   "name": "enhance-storage",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "files": [
     "dist",
@@ -9,9 +9,9 @@
   ],
   "main": "./dist/enhance-storage.umd.cjs",
   "module": "./dist/enhance-storage.js",
-  "types": "./index.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "types": "./index.d.ts",
+    "types": "./dist/index.d.ts",
     "import": "./dist/enhance-storage.js",
     "require": "./dist/enhance-storage.umd.cjs"
   },
