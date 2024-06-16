@@ -10,6 +10,10 @@
   "main": "./dist/enhance-storage.umd.cjs",
   "module": "./dist/enhance-storage.js",
   "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bigme2020/enhance-storage"
+  },
   "exports": {
     "types": "./dist/index.d.ts",
     "import": "./dist/enhance-storage.js",
