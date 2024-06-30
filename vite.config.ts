@@ -11,6 +11,14 @@ export default defineConfig({
       name: "EnhanceStorage",
       fileName: "enhance-storage",
     },
+    rollupOptions: {
+      external: ["tapable"],
+      output: {
+        globals: {
+          tapable: "Tapable",
+        },
+      },
+    },
   },
   plugins: [dts()],
   test: {
