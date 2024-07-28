@@ -1,4 +1,4 @@
-export const ENHANCE_STORAGE_EVENTS = {
+export const E_STORAGE_EVENTS = {
   GET_ITEM: "getItem",
   SET_ITEM: "setItem",
 } as const;

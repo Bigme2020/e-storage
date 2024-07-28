@@ -31,6 +31,8 @@ importers:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@20.14.2)(jsdom@24.1.0)
 
+  plugins/plugin-expire: {}
+
 packages:
 
   '@babel/helper-string-parser@7.24.7':

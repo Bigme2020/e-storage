@@ -1,28 +1,35 @@
 import { SyncHook } from "tapable";
 
-import { ENHANCE_STORAGE_EVENTS, ERR_TYPE } from "./configs";
+import { E_STORAGE_EVENTS, ERR_TYPE } from "./configs";
 import { createHooks } from "./utils";
 import {
-  EnhanceStorageEvent,
-  EnhanceStorageProps,
+  EStorageEvent,
+  EStorageProps,
   Type,
   KeyOfObj,
   ThrowErrorProps,
-  EnhanceStorageEventCallback,
+  EStorageEventCallback,
+  EStoragePlugin,
 } from "./types";
 
 const SERVICE_NAMES: string[] = [];
 
 /** 这玩意只是对 storage 操作的简单封装 */
-export class EnhanceStorage<StorageType = Record<string, any>> {
+export class EStorage<StorageType = Record<string, any>> {
   serviceName: string;
   items: (keyof StorageType)[];
   type: Type;
+  plugins: EStoragePlugin[];
 
   _getHook?: SyncHook<[KeyOfObj, any], any>;
   _setHook?: SyncHook<[KeyOfObj, any], any>;
 
-  constructor({ serviceName, items, type }: EnhanceStorageProps<StorageType>) {
+  constructor({
+    serviceName,
+    items,
+    type,
+    plugins,
+  }: EStorageProps<StorageType>) {
     if (SERVICE_NAMES.includes(serviceName)) {
       throw new Error(
         `Same ServiceName Detected: ${serviceName}，Change Your ServiceName`
@@ -31,6 +38,7 @@ export class EnhanceStorage<StorageType = Record<string, any>> {
     this.serviceName = serviceName;
     this.items = items;
     this.type = type || "localStorage";
+    this.plugins = plugins || [];
 
     createHooks(this);
 
@@ -38,7 +46,7 @@ export class EnhanceStorage<StorageType = Record<string, any>> {
   }
 
   private throwError({ type, errMsg }: ThrowErrorProps) {
-    throw new Error(`EnhanceStorage ${type} Error: ${errMsg}`);
+    throw new Error(`EStorage ${type} Error: ${errMsg}`);
   }
 
   private throwItemError(item: keyof StorageType) {
@@ -121,12 +129,9 @@ export class EnhanceStorage<StorageType = Record<string, any>> {
     return !!this.getItem(item);
   }
 
-  on<T extends EnhanceStorageEvent>(
-    event: T,
-    callback: EnhanceStorageEventCallback[T]
-  ) {
+  on<T extends EStorageEvent>(event: T, callback: EStorageEventCallback[T]) {
     switch (event) {
-      case ENHANCE_STORAGE_EVENTS.GET_ITEM: {
+      case E_STORAGE_EVENTS.GET_ITEM: {
         if (!this._getHook) {
           this.throwError({ type: ERR_TYPE.HOOK, errMsg: "not init get hook" });
           return;
@@ -134,7 +139,7 @@ export class EnhanceStorage<StorageType = Record<string, any>> {
         this._getHook.tap(`get${this._getHook.taps.length}`, callback);
         break;
       }
-      case ENHANCE_STORAGE_EVENTS.SET_ITEM:
+      case E_STORAGE_EVENTS.SET_ITEM:
         if (!this._setHook) {
           this.throwError({ type: ERR_TYPE.HOOK, errMsg: "not init set hook" });
           return;

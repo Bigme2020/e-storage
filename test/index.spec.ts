@@ -1,7 +1,8 @@
 import { describe, expect, afterEach, test } from "vitest";
 
-import { EnhanceStorage, Type } from "../lib";
 import { getItemFromStorage } from "./utils";
+import { Type } from "../src/types";
+import { EStorage } from "../src";
 
 const TEST_VALUE = "testValue";
 
@@ -13,7 +14,7 @@ describe("storageBasicFunctionallity", () => {
 
   testTypes.forEach((type) => {
     describe(type, () => {
-      const testStroage = new EnhanceStorage({
+      const testStroage = new EStorage({
         type,
         serviceName: type,
         items: [LOCAL_STORAGE_ITEM, SESSION_STORAGE_ITEM],

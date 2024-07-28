@@ -1,27 +1,28 @@
 {
-  "name": "enhance-storage",
+  "name": "e-storage",
   "version": "0.0.1",
   "type": "module",
   "files": [
     "dist",
     "index.d.ts"
   ],
-  "main": "./dist/enhance-storage.umd.cjs",
-  "module": "./dist/enhance-storage.js",
+  "main": "./dist/e-storage.umd.cjs",
+  "module": "./dist/e-storage.js",
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Bigme2020/enhance-storage"
+    "url": "https://github.com/Bigme2020/e-storage"
   },
   "exports": {
     "types": "./dist/index.d.ts",
-    "import": "./dist/enhance-storage.js",
-    "require": "./dist/enhance-storage.umd.cjs"
+    "import": "./dist/e-storage.js",
+    "require": "./dist/e-storage.umd.cjs"
   },
   "scripts": {
     "dev": "vite",
-    "test": "vitest",
-    "build": "tsc && vite build"
+    "test": "vitest run",
+    "test:dev": "vitest watch",
+    "build": "tsc && pnpm test && vite build"
   },
   "devDependencies": {
     "@types/node": "^20.14.2",
